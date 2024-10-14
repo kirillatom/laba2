@@ -9,14 +9,16 @@ class ProductCost
 {
 public:
 	enum PriceTrend {
-		STABLE = 0,        // Цена стабильная
-		INCREASING = 1,    // Цена растет
-		DECREASING = 2,    // Цена падает
-		AT_MINIMUM = 3,    // Цена на минимуме
-		AT_MAXIMUM = 4     // Цена на максимуме
+		STABLE,        // Цена стабильная
+		INCREASING,    // Цена растет
+		DECREASING,    // Цена падает
+		AT_MINIMUM,    // Цена на минимуме
+		AT_MAXIMUM    // Цена на максимуме
 	};
-	PriceTrend getPriceTrend() const {
-		double lastPrice = priceHistory[monitoringDay - 1];
+	PriceTrend getPriceTrend() const 
+	{
+		double lastPrice = priceHistory[actualmonitoringDay - 1];
+
 		if (price == lastPrice)
 		{
 			return STABLE;
@@ -37,10 +39,10 @@ public:
 		{
 			return AT_MAXIMUM;
 		}
-
 		return STABLE;
 	}
-	ProductCost(const char* url, const unsigned int day, const unsigned int stock, const double prices) {}
+
+	ProductCost(const char* url, const unsigned int day, const unsigned int stock, double prices);
 
 	//метод тригера
 	bool isLowStock() const;
@@ -88,8 +90,7 @@ private:
 	double maxCost; // максимальная стоимость
 	double minCost; // минимальная стоимость
 	static const int URL_LENGTH = 256;
-	// массив и вектор
-	static char url[URL_LENGTH];
+	char url[URL_LENGTH]; // URL
 	vector<double> priceHistory;
 	
 };

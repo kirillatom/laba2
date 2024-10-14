@@ -20,19 +20,6 @@ ProductCost::ProductCost(const char* url, const unsigned int day, const unsigned
 	priceHistory.push_back(price);
 }	
  
-//метод тригера
-
-bool ProductCost::isLowStock() const
-{
-	if (productQuantity < 2)
-	{
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
 void ProductCost::updateCurrentData(double newPrice, int newProductQuantity) {
 	if (newProductQuantity < 0)
 	{
@@ -68,31 +55,23 @@ void ProductCost::updateCurrentData(double newPrice, int newProductQuantity) {
 }
 
 void ProductCost::printSummary() const {
-	for (int i = 0; url[i] != '0'; ++i) 
-	{
-		cout << url[i];
-	}                 
-	cout << endl;
-	cout << "Дни мониторинга: " << actualmonitoringDay <<"/"<< monitoringDay<< endl;
-	cout << "Текущая цена: $" << fixed << setprecision(2) << price << endl;  
-	cout << "Текущее количество товара:  " << productQuantity << endl;    
+	cout << url << endl;
+	cout << "Дни мониторинга: " << actualmonitoringDay << "/" << monitoringDay << endl;
+	cout << "Текущая цена: $" << fixed << setprecision(2) << price << endl;
+	cout << "Текущее количество товара:  " << productQuantity << endl;
 	cout << "История цен: ";
-	for (double price : priceHistory) {                             
-		cout << "$" << price << " ";                          
+	for (double price : priceHistory) {
+		cout << "$" << price << " ";
 	}
 	cout << endl;
 
-	cout << "Средняя цена: $" << averageCost << endl;    
-	cout << "Максимальная цена: $" << maxCost << endl;           
-	cout << "Минимальная цена: $" << minCost << endl;       
+	cout << "Средняя цена: $" << averageCost << endl;
+	cout << "Максимальная цена: $" << maxCost << endl;
+	cout << "Минимальная цена: $" << minCost << endl;
 
-	if (isLowStock())
-	{                                               
-		cout << "Запас товара низкий!" << endl;         
-	}
 
-	switch (getPriceTrend()) 
-	{                                       
+	switch (getPriceTrend())
+	{
 	case STABLE:
 		cout << "Тенденция товара: стабильно" << endl;
 		break;
@@ -108,5 +87,15 @@ void ProductCost::printSummary() const {
 	case AT_MAXIMUM:
 		cout << "Тенденция товара: на максимуме" << endl;
 		break;
+	}
+}
+bool ProductCost::isLowStock() const
+{
+	if (productQuantity < 2)
+	{
+		return true && "Запас товара низкий!";
+	}
+	else {
+		return false;
 	}
 }
