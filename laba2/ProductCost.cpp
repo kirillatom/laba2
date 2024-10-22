@@ -1,7 +1,7 @@
 #include "ProductCost.h"
 
-ProductCost::ProductCost(const char* url, const unsigned int day, const unsigned int stock, double prices)
-	: monitoringDay(day), productQuantity(stock), price(prices), actualmonitoringDay(0) 
+ProductCost::ProductCost(const char* url, const unsigned int day, const unsigned int stock, double price)
+	: productQuantity(stock), price(price), monitoringDay(day), actualmonitoringDay(0) 
 {
 	if (monitoringDay <= 0)
 	{
@@ -11,14 +11,23 @@ ProductCost::ProductCost(const char* url, const unsigned int day, const unsigned
 	{
 		throw invalid_argument("Текущая стоимость не может быть равна нулю или быть меньше него!!!");
 	}
-
+	if (url == 0 || url == nullptr) 
+	{
+		throw invalid_argument("Некорректная ссылка!!!");
+	}
 	strncpy_s(this->url, url, URL_LENGTH - 1); 
 	this->url[URL_LENGTH - 1] = '0'; 
 
 	maxCost = price;
-	minCost = price - 200;
+	minCost = price;
 	priceHistory.push_back(price);
-}	
+}
+ ProductCost::~ProductCost()
+{
+	priceHistory.clear();
+	priceHistory.shrink_to_fit();
+}
+
  
 void ProductCost::updateCurrentData(double newPrice, int newProductQuantity) {
 	if (newProductQuantity < 0)
@@ -34,9 +43,9 @@ void ProductCost::updateCurrentData(double newPrice, int newProductQuantity) {
 
 	price = newPrice;
 
-	priceHistory.push_back(newPrice);
-
 	actualmonitoringDay++;
+
+	priceHistory.push_back(newPrice);
 
 	if (newPrice > maxCost)
 	{
@@ -46,7 +55,6 @@ void ProductCost::updateCurrentData(double newPrice, int newProductQuantity) {
 	{
 		minCost = newPrice;
     }
-	averageCost = 0.0;
 	for (double price : priceHistory) 
 	{   
 		averageCost += price;
@@ -56,7 +64,7 @@ void ProductCost::updateCurrentData(double newPrice, int newProductQuantity) {
 
 void ProductCost::printSummary() const {
 	cout << url << endl;
-	cout << "Дни мониторинга: " << actualmonitoringDay << "/" << monitoringDay << endl;
+	cout << "Дни мониторинга: " << actualmonitoringDay << endl;
 	cout << "Текущая цена: $" << fixed << setprecision(2) << price << endl;
 	cout << "Текущее количество товара:  " << productQuantity << endl;
 	cout << "История цен: ";
@@ -89,11 +97,42 @@ void ProductCost::printSummary() const {
 		break;
 	}
 }
+
+//Селекторы
+
+inline unsigned int ProductCost::getProductQuantity() const
+{
+	return productQuantity;
+}
+inline unsigned int ProductCost::getMonitoringDay() const
+{
+	return monitoringDay;
+}
+inline double ProductCost::getPrice() const
+{
+	return price;
+}
+inline unsigned int ProductCost::getActualmonitoringDay() const
+{
+	return actualmonitoringDay;
+}
+inline double ProductCost::getAverageCost() const
+{
+	return averageCost;
+}
+inline double ProductCost::getMaxCost() const
+{
+	return maxCost;
+}
+inline double ProductCost::getMinCost() const
+{
+	return minCost;
+}
 bool ProductCost::isLowStock() const
 {
-	if (productQuantity < 2)
+	if (productQuantity < minProduct)
 	{
-		return true && "Запас товара низкий!";
+		return true;
 	}
 	else {
 		return false;

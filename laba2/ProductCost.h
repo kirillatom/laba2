@@ -42,7 +42,9 @@ public:
 		return STABLE;
 	}
 
-	ProductCost(const char* url, const unsigned int day, const unsigned int stock, double prices);
+	ProductCost(const char* url, const unsigned int day, const unsigned int stock, double price);
+
+	~ProductCost();
 
 	//метод тригера
 	bool isLowStock() const;
@@ -50,34 +52,13 @@ public:
 	void updateCurrentData(double newPrice, int newProductQuantity);
 	void printSummary() const;
 	//Селекторы
-	unsigned int getProductQuantity() const
-	{
-		return productQuantity;
-    }
-	unsigned int getMonitoringDay() const
-	{
-		return monitoringDay;
-	}
-	double getPrice() const
-	{
-		return price;
-	}
-	unsigned int getActualmonitoringDay() const
-	{
-		return actualmonitoringDay;
-	}
-	double getAverageCost() const
-	{
-		return averageCost;
-	}
-	double getMaxCost() const
-	{
-		return maxCost;
-	}
-	double getMinCost() const
-	{
-		return minCost;
-	}
+	unsigned int getProductQuantity() const;
+	unsigned int getMonitoringDay() const;
+	double getPrice() const;
+	unsigned int getActualmonitoringDay() const;
+	double getAverageCost() const;
+	double getMaxCost() const;
+	double getMinCost() const;
 
 
 private:
@@ -86,9 +67,10 @@ private:
     double price; //  текущая стоимость;
 	unsigned int monitoringDay; // количество дней мониторинга;
 	unsigned int actualmonitoringDay; // текущий день мониторинга;
-	double averageCost; // средняя стоимость
+	double averageCost = 0; // средняя стоимость
 	double maxCost; // максимальная стоимость
 	double minCost; // минимальная стоимость
+	static const int minProduct = 2;
 	static const int URL_LENGTH = 256;
 	char url[URL_LENGTH]; // URL
 	vector<double> priceHistory;
