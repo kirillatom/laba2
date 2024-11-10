@@ -1,5 +1,5 @@
 ﻿#include "ProductCost.h"
-
+#include "string"
 
 int main() 
 {
@@ -8,7 +8,8 @@ int main()
     ProductCost monitor(link, 10, 10, 299.99);  
     double price; int stock;
     bool check = true;
-    char string;
+    char select;
+    int count;
 
     do {
         cout << "Введите цену товара" << endl;
@@ -17,13 +18,34 @@ int main()
         cin >> stock;
         monitor.updateCurrentData(price, stock);
         cout << "Хотели ли бы вы добавить еще 1 день мониторинга? (Y/N)" << endl;
-        cin >> string;
-        if (string == 'N')
+        cin >> select;
+        if (select == 'N' || select == 'n')
         {
             check = false;
         }
     } while (check != false);
-    
-    monitor.printSummary();
-	 
+    check = true;
+    cout << "Если хотите посмотреть цену и количество товара за определенный день, введите Y, либо введите N, если хотите посмотреть всю статистику.\n";
+    cout << "Если хотите посмотреть только цену за определенный день, введите Z. Если хотите посмотреть только сводную информацию, введите S\n";
+    cin >> select;
+    if (select == 'N' || select == 'n')
+    {
+        check = false;
+        monitor.printSummary();
+    }
+    else if(select == 'Y' || select == 'y')
+    {
+        cout << "Введите номер дня: ";
+        cin >> count;
+        monitor.printSummary(count);
+    }  
+    else if (select == 'Z' || select == 'z')
+    {
+        price = monitor[count];
+        cout << "Цена за этот день составляла: " << price;
+    }
+    else if (select == 'S' || select == 's')
+    {
+        cout << monitor;
+    }
 }

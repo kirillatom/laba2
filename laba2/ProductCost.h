@@ -44,6 +44,8 @@ public:
 
 	ProductCost(const char* url, const unsigned int day, const unsigned int stock, double price);
 
+	ProductCost(const char* url, const unsigned int productQuantity);
+
 	~ProductCost();
 
 	//метод тригера
@@ -51,6 +53,7 @@ public:
 
 	void updateCurrentData(double newPrice, int newProductQuantity);
 	void printSummary() const;
+	void printSummary(int MonitoringDay);
 	//Селекторы
 	unsigned int getProductQuantity() const;
 	unsigned int getMonitoringDay() const;
@@ -59,6 +62,53 @@ public:
 	double getAverageCost() const;
 	double getMaxCost() const;
 	double getMinCost() const;
+
+	double operator[](int MonitoringDay) const
+	{
+		double test = 0;
+		for (int i = 0; i < monitoringDays.size(); i++)
+		{
+			if (MonitoringDay == monitoringDays[i])
+			{
+				return test = priceHistory[i];
+
+			}
+		}
+	};
+
+	friend ostream& operator << (ostream& out, ProductCost& ourObject) 
+	{
+		out << ourObject.url << endl;
+		out << "Дни мониторинга: " << ourObject.actualmonitoringDay << endl;
+		out << "Текущая цена: $" << fixed << setprecision(2) << ourObject.price << endl;
+		out << "Текущее количество товара:  " << ourObject.productQuantity << endl;
+		out << "Средняя цена: $" << ourObject.averageCost << endl;
+		out << "Максимальная цена: $" << ourObject.maxCost << endl;
+		out << "Минимальная цена: $" << ourObject.minCost << endl;
+
+
+		switch (ourObject.getPriceTrend())
+		{
+		case STABLE:
+			out << "Тенденция товара: стабильно" << endl;
+			break;
+		case INCREASING:
+			out << "Тенденция товара: растёт" << endl;
+			break;
+		case DECREASING:
+			out << "Тенденция товара: падает" << endl;
+			break;
+		case AT_MINIMUM:
+			out << "Тенденция товара: на минимуме" << endl;
+			break;
+		case AT_MAXIMUM:
+			out << "Тенденция товара: на максимуме" << endl;
+			break;
+		}
+
+		return out;
+	}
+
 
 
 private:
@@ -74,6 +124,9 @@ private:
 	static const int URL_LENGTH = 256;
 	char url[URL_LENGTH]; // URL
 	vector<double> priceHistory;
+	vector<int> monitoringDays; //Дни мониторинга
+	vector<int> productQuantityHistory; 
+
 	
 };
 
