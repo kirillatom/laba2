@@ -41,6 +41,8 @@ int main()
     }  
     else if (select == 'Z' || select == 'z')
     {
+        cout << "Введите номер дня: ";
+        cin >> count;
         price = monitor[count];
         cout << "Цена за этот день составляла: " << price;
     }

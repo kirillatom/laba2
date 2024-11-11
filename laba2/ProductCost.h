@@ -15,32 +15,7 @@ public:
 		AT_MINIMUM,    // Цена на минимуме
 		AT_MAXIMUM    // Цена на максимуме
 	};
-	PriceTrend getPriceTrend() const 
-	{
-		double lastPrice = priceHistory[actualmonitoringDay - 1];
-
-		if (price == lastPrice)
-		{
-			return STABLE;
-		}
-		else if (price > lastPrice)
-		{
-			return INCREASING;
-		}
-		else if (price < lastPrice)
-		{
-			return DECREASING;
-		}
-		else if (price == minCost)
-		{
-			return AT_MINIMUM;
-		}
-		else if (price == maxCost) 
-		{
-			return AT_MAXIMUM;
-		}
-		return STABLE;
-	}
+	PriceTrend getPriceTrend() const;
 
 	ProductCost(const char* url, const unsigned int day, const unsigned int stock, double price);
 
@@ -63,51 +38,9 @@ public:
 	double getMaxCost() const;
 	double getMinCost() const;
 
-	double operator[](int MonitoringDay) const
-	{
-		double test = 0;
-		for (int i = 0; i < monitoringDays.size(); i++)
-		{
-			if (MonitoringDay == monitoringDays[i])
-			{
-				return test = priceHistory[i];
+	double operator[](int MonitoringDay) const;
 
-			}
-		}
-	};
-
-	friend ostream& operator << (ostream& out, ProductCost& ourObject) 
-	{
-		out << ourObject.url << endl;
-		out << "Дни мониторинга: " << ourObject.actualmonitoringDay << endl;
-		out << "Текущая цена: $" << fixed << setprecision(2) << ourObject.price << endl;
-		out << "Текущее количество товара:  " << ourObject.productQuantity << endl;
-		out << "Средняя цена: $" << ourObject.averageCost << endl;
-		out << "Максимальная цена: $" << ourObject.maxCost << endl;
-		out << "Минимальная цена: $" << ourObject.minCost << endl;
-
-
-		switch (ourObject.getPriceTrend())
-		{
-		case STABLE:
-			out << "Тенденция товара: стабильно" << endl;
-			break;
-		case INCREASING:
-			out << "Тенденция товара: растёт" << endl;
-			break;
-		case DECREASING:
-			out << "Тенденция товара: падает" << endl;
-			break;
-		case AT_MINIMUM:
-			out << "Тенденция товара: на минимуме" << endl;
-			break;
-		case AT_MAXIMUM:
-			out << "Тенденция товара: на максимуме" << endl;
-			break;
-		}
-
-		return out;
-	}
+	friend ostream& operator << (ostream& out, const ProductCost& ourObject);
 
 
 
