@@ -1,5 +1,4 @@
 ﻿#include "ProductCost.h"
-#include "string"
 #include "ProductRating.h"
 
 int main() 

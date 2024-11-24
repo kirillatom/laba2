@@ -1,3 +1,5 @@
+#ifndef PRODUCTCOST_H
+#define PRODUCTCOST_H
 #include <iostream>
 #include <string>
 #include <vector>
@@ -62,7 +64,6 @@ private:
 	vector<double> priceHistory;
 	vector<int> monitoringDays; //Дни мониторинга
 	vector<int> productQuantityHistory; 
-
-	
 };
+#endif  PRODUCTCOST_H
 
