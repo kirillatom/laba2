@@ -8,6 +8,8 @@ using namespace std;
 class ProductCost
 {
 public:
+	unsigned int actualmonitoringDay; // текущий день мониторинга;
+
 	enum PriceTrend {
 		STABLE,        // Цена стабильная
 		INCREASING,    // Цена растет
@@ -16,6 +18,8 @@ public:
 		AT_MAXIMUM    // Цена на максимуме
 	};
 	PriceTrend getPriceTrend() const;
+
+	ProductCost() {};
 
 	ProductCost(const char* url, const unsigned int day, const unsigned int stock, double price);
 
@@ -49,7 +53,6 @@ private:
 	unsigned int productQuantity; // текущее количество товара;
     double price; //  текущая стоимость;
 	unsigned int monitoringDay; // количество дней мониторинга;
-	unsigned int actualmonitoringDay; // текущий день мониторинга;
 	double averageCost = 0; // средняя стоимость
 	double maxCost; // максимальная стоимость
 	double minCost; // минимальная стоимость

@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProductCost.cpp" />
+    <ClCompile Include="ProductRating.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProductCost.h" />
+    <ClInclude Include="ProductRating.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

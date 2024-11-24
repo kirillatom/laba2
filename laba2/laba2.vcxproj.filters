@@ -21,9 +21,15 @@
     <ClCompile Include="ProductCost.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ProductRating.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProductCost.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductRating.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
