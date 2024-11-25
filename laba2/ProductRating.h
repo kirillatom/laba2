@@ -2,9 +2,15 @@
 class ProductRating : public ProductCost
 {
 public:
-    void Rating(unsigned int& positiveReviewCount, unsigned int& negativeReviewCount);
-    void CoutRating();
+    ProductRating(const char* url, const unsigned int day, const unsigned int stock, double price, unsigned int& positiveReviewCount, unsigned int& negativeReviewCount);
+    void CoutRating() const;
     ~ProductRating();
+
+    int GetPositiveReviews() const;
+    int GetNegativeReviews() const;
+    void updateCurrentData(double newPrice, int newProductQuantity, int positiveReviewCount, int negativeReviewCount);
+
+    //TODO добавить метод изменения с использованием метода изменения базового класса currentdata
 
 private:
     vector <unsigned int> positiveReviews;

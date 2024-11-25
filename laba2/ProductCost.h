@@ -10,7 +10,6 @@ using namespace std;
 class ProductCost
 {
 public:
-	unsigned int actualmonitoringDay; // текущий день мониторинга;
 
 	enum PriceTrend {
 		STABLE,        // Цена стабильная
@@ -20,8 +19,6 @@ public:
 		AT_MAXIMUM    // Цена на максимуме
 	};
 	PriceTrend getPriceTrend() const;
-
-	ProductCost() {};
 
 	ProductCost(const char* url, const unsigned int day, const unsigned int stock, double price);
 
@@ -48,7 +45,8 @@ public:
 
 	friend ostream& operator << (ostream& out, const ProductCost& ourObject);
 
-
+protected:
+	unsigned int actualmonitoringDay; // текущий день мониторинга;
 
 private:
 	// поля
@@ -61,6 +59,8 @@ private:
 	static const int minProduct = 2;
 	static const int URL_LENGTH = 256;
 	char url[URL_LENGTH]; // URL
+	static const int NUMBER_NULLIK = 0;
+	static const int NUMBER_ONE = 1;
 	vector<double> priceHistory;
 	vector<int> monitoringDays; //Дни мониторинга
 	vector<int> productQuantityHistory; 

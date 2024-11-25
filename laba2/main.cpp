@@ -5,13 +5,19 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
     char link[] = "http://example.com/phone";
-    ProductCost monitor(link, 10, 10, 299.99);  
-    ProductRating rate;
+    int startPrice;
     double price; int stock;
     bool check = true;
     char select;
     int count;
     unsigned int nr, pr;
+    cout << "Введите начальную цену товара в 1 день" << endl;
+    cin >> startPrice;
+    cout << "Введите количество положительных отзывов о товарах" << endl;
+    cin >> pr;
+    cout << "Введите количество негативных отзывов о товарах" << endl;
+    cin >> nr;
+    ProductRating monitor(link, 10, 10, startPrice,pr,nr);
 
     do {
         cout << "Введите цену товара" << endl;
@@ -23,7 +29,7 @@ int main()
         cin >> pr;
         cout << "Введите количество негативных отзывов о товарах" << endl;
         cin >> nr;
-        rate.Rating(pr, nr);
+        //monitor.CoutRating(pr, nr);
         cout << "Хотели ли бы вы добавить еще 1 день мониторинга? (Y/N)" << endl;
         cin >> select;
         if (select == 'N' || select == 'n')
@@ -39,7 +45,7 @@ int main()
     {
         check = false;
         monitor.printSummary();
-        rate.CoutRating();
+        monitor.CoutRating();
     }
     else if(select == 'Y' || select == 'y')
     {

@@ -2,7 +2,7 @@
 
 ProductCost::PriceTrend ProductCost::getPriceTrend() const
 {
-	double lastPrice = priceHistory[actualmonitoringDay - 1];
+	double lastPrice = priceHistory[actualmonitoringDay - NUMBER_ONE];
 
 	if (price == lastPrice)
 	{
@@ -30,11 +30,11 @@ ProductCost::PriceTrend ProductCost::getPriceTrend() const
 ProductCost::ProductCost(const char* url, const unsigned int day, const unsigned int stock, double price)
 	: productQuantity(stock), price(price), monitoringDay(day), actualmonitoringDay(0) 
 {
-	if (monitoringDay <= 0)
+	if (monitoringDay <= NUMBER_NULLIK)
 	{
 		throw invalid_argument("Дни мониторинга не могут быть равны нулю или быть меньше него!!!");
 	}
-	if (price <= 0)
+	if (price <= NUMBER_NULLIK)
 	{
 		throw invalid_argument("Текущая стоимость не может быть равна нулю или быть меньше него!!!");
 	}
@@ -42,8 +42,8 @@ ProductCost::ProductCost(const char* url, const unsigned int day, const unsigned
 	{
 		throw invalid_argument("Некорректная ссылка!!!");
 	}
-	strncpy_s(this->url, url, URL_LENGTH - 1); 
-	this->url[URL_LENGTH - 1] = '0'; 
+	strncpy_s(this->url, url, URL_LENGTH - NUMBER_ONE);
+	this->url[URL_LENGTH - NUMBER_ONE] = '0';
 
 	maxCost = price;
 	minCost = price;
@@ -58,8 +58,8 @@ ProductCost::ProductCost(const char* url, const unsigned int productQuantity)
 	{
 		throw invalid_argument("Некорректная ссылка!!!");
 	}
-	strncpy_s(this->url, url, URL_LENGTH - 1);
-	this->url[URL_LENGTH - 1] = '0';
+	strncpy_s(this->url, url, URL_LENGTH - NUMBER_ONE);
+	this->url[URL_LENGTH - NUMBER_ONE] = '0';
 }
 
  ProductCost::~ProductCost()
@@ -72,11 +72,11 @@ ProductCost::ProductCost(const char* url, const unsigned int productQuantity)
 
  
 void ProductCost::updateCurrentData(double newPrice, int newProductQuantity) {
-	if (newProductQuantity < 0)
+	if (newProductQuantity < NUMBER_NULLIK)
 	{
 		throw invalid_argument("Запас товара не может быть отрицательным!!!");
 	}
-	if (newPrice < 0)
+	if (newPrice < NUMBER_NULLIK)
 	{
 		throw invalid_argument("Цена товара не может быть отрицательным!!!");
 	}
@@ -89,7 +89,7 @@ void ProductCost::updateCurrentData(double newPrice, int newProductQuantity) {
 
 	priceHistory.push_back(newPrice);
 
-	monitoringDays.push_back(actualmonitoringDay + 1);
+	monitoringDays.push_back(actualmonitoringDay + NUMBER_ONE);
 
 	productQuantityHistory.push_back(newProductQuantity);
 
@@ -118,7 +118,7 @@ void ProductCost::printSummary() const {
 	{
 		throw out_of_range("Ошибка данных 404");
 	}
-	for (int i = 0; i < priceHistory.size(); ++i)
+	for (int i = NUMBER_NULLIK; i < priceHistory.size(); ++i)
 	{
 		cout << monitoringDays[i] <<": "<< priceHistory[i] << endl;
 	}
@@ -153,7 +153,7 @@ void ProductCost::printSummary(int MonitoringDay)
 {
 	cout << url << endl;
 	cout << "День мониторинга: " << MonitoringDay << endl;
-	for (int i = 0; i < monitoringDays.size(); i++)
+	for (int i = NUMBER_NULLIK; i < monitoringDays.size(); i++)
 	{
 		if (MonitoringDay == monitoringDays[i])
 		{
@@ -207,8 +207,8 @@ bool ProductCost::isLowStock() const
 
 double ProductCost::operator[](int MonitoringDay) const
 {
-	double test = 0;
-	for (int i = 0; i < monitoringDays.size(); i++) 
+	double test = NUMBER_NULLIK;
+	for (int i = NUMBER_NULLIK; i < monitoringDays.size(); i++)
 	{
 		if (MonitoringDay == monitoringDays[i])
 		{
