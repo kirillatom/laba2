@@ -1,5 +1,7 @@
-﻿#include "ProductCost.h"
-#include "ProductRating.h"
+﻿//#include "ProductCost.h"
+//#include "ProductRating.h"
+#include "Product.h"
+
 
 int main() 
 {
@@ -17,14 +19,15 @@ int main()
     cin >> pr;
     cout << "Введите количество негативных отзывов о товарах" << endl;
     cin >> nr;
-    ProductRating monitor(link, 10, 10, startPrice,pr,nr);
+    Product* test[2];
+    //ProductRating monitor(link, 10, 10, startPrice,pr,nr);
 
     do {
         cout << "Введите цену товара" << endl;
         cin >> price;
         cout << "Введите количество товара" << endl;
         cin >> stock;
-        monitor.updateCurrentData(price, stock);
+        //test[0]->updateCurrentData(price, stock);
         cout << "Введите количество положительных отзывов о товарах" << endl;
         cin >> pr;
         cout << "Введите количество негативных отзывов о товарах" << endl;
@@ -44,24 +47,24 @@ int main()
     if (select == 'N' || select == 'n')
     {
         check = false;
-        monitor.printSummary();
-        monitor.CoutRating();
+        //monitor.printSummary();
+        //monitor.CoutRating();
     }
     else if(select == 'Y' || select == 'y')
     {
         cout << "Введите номер дня: ";
         cin >> count;
-        monitor.printSummary(count);
+        //monitor.printSummary(count);
     }  
     else if (select == 'Z' || select == 'z')
     {
         cout << "Введите номер дня: ";
         cin >> count;
-        price = monitor[count];
+        //price = monitor[count];
         cout << "Цена за этот день составляла: " << price;
     }
     else if (select == 'S' || select == 's')
     {
-        cout << monitor;
+        //cout << monitor;
     }
 }
