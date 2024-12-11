@@ -1,6 +1,6 @@
-﻿//#include "ProductCost.h"
-//#include "ProductRating.h"
-#include "Product.h"
+﻿#include "IProduct.h"
+#include "ProductCost.h"
+#include "ProductRating.h"
 
 
 int main() 
@@ -19,20 +19,20 @@ int main()
     cin >> pr;
     cout << "Введите количество негативных отзывов о товарах" << endl;
     cin >> nr;
-    Product* test[2];
-    //ProductRating monitor(link, 10, 10, startPrice,pr,nr);
+    IProduct* test[2];
+    test[0] = new ProductRating(link, 10, 10, startPrice, pr, nr);
 
     do {
         cout << "Введите цену товара" << endl;
         cin >> price;
         cout << "Введите количество товара" << endl;
         cin >> stock;
-        //test[0]->updateCurrentData(price, stock);
+        test[0]->updateCurrentData(price, stock);
         cout << "Введите количество положительных отзывов о товарах" << endl;
         cin >> pr;
         cout << "Введите количество негативных отзывов о товарах" << endl;
         cin >> nr;
-        //monitor.CoutRating(pr, nr);
+        test[0]->CoutRating(pr, nr);
         cout << "Хотели ли бы вы добавить еще 1 день мониторинга? (Y/N)" << endl;
         cin >> select;
         if (select == 'N' || select == 'n')
@@ -47,24 +47,24 @@ int main()
     if (select == 'N' || select == 'n')
     {
         check = false;
-        //monitor.printSummary();
-        //monitor.CoutRating();
+        test[0]->printSummary();
+        test[0]->CoutRating();
     }
     else if(select == 'Y' || select == 'y')
     {
         cout << "Введите номер дня: ";
         cin >> count;
-        //monitor.printSummary(count);
+        test[0]->printSummary(count);
     }  
     else if (select == 'Z' || select == 'z')
     {
         cout << "Введите номер дня: ";
         cin >> count;
-        //price = monitor[count];
+        //price = test[count];
         cout << "Цена за этот день составляла: " << price;
     }
     else if (select == 'S' || select == 's')
     {
-        //cout << monitor;
+        cout << test[0];
     }
 }

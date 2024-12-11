@@ -108,7 +108,8 @@ void ProductCost::updateCurrentData(double newPrice, int newProductQuantity) {
 	averageCost /= priceHistory.size();
 }
 
-void ProductCost::printSummary() const {
+void ProductCost::printSummary() const 
+{
 	cout << url << endl;
 	cout << "Дни мониторинга: " << actualmonitoringDay + 1 << endl;
 	cout << "Текущая цена: $" << fixed << setprecision(2) << price << endl;

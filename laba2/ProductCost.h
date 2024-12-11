@@ -4,11 +4,11 @@
 #include <string>
 #include <vector>
 #include <iomanip> 
-#include "Product.h"
+#include "IProduct.h"
 
 using namespace std;
 
-class ProductCost
+class ProductCost : public IProduct
 {
 public:
 
@@ -31,7 +31,7 @@ public:
 	bool isLowStock() const;
 
 	void updateCurrentData(double newPrice, int newProductQuantity);
-	void printSummary() const;
+	void printSummary() const override;
 	void printSummary(int MonitoringDay);
 	//Селекторы
 	unsigned int getProductQuantity() const;

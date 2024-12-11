@@ -3,7 +3,7 @@ class ProductRating : public ProductCost
 {
 public:
     ProductRating(const char* url, const unsigned int day, const unsigned int stock, double price, unsigned int& positiveReviewCount, unsigned int& negativeReviewCount);
-    void CoutRating() const;
+    void CoutRating() const override;
     ~ProductRating();
 
     int GetPositiveReviews() const;
