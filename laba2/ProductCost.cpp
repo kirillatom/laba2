@@ -150,7 +150,7 @@ void ProductCost::printSummary() const
 	}
 }
 
-void ProductCost::printSummary(int MonitoringDay)
+void ProductCost::printSummary(int MonitoringDay) const
 {
 	cout << url << endl;
 	cout << "День мониторинга: " << MonitoringDay << endl;
@@ -250,5 +250,11 @@ ostream& operator << (ostream& out, const ProductCost& ourObject)
 		break;
 	}
 
+	return out;
+}
+
+
+ostream& operator << (ostream& out, const IProduct& ourObject) {
+	ourObject.printSummary();
 	return out;
 }

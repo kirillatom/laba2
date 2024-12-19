@@ -30,9 +30,9 @@ public:
 	//метод тригера
 	bool isLowStock() const;
 
-	void updateCurrentData(double newPrice, int newProductQuantity);
+	void updateCurrentData(double newPrice, int newProductQuantity) override;
 	void printSummary() const override;
-	void printSummary(int MonitoringDay);
+	void printSummary(int MonitoringDay) const override;
 	//Селекторы
 	unsigned int getProductQuantity() const;
 	unsigned int getMonitoringDay() const;
@@ -42,7 +42,9 @@ public:
 	double getMaxCost() const;
 	double getMinCost() const;
 
-	double operator[](int MonitoringDay) const;
+	virtual void CoutRating() const override { }
+
+	double operator[](int MonitoringDay) const override;
 
 	friend ostream& operator << (ostream& out, const ProductCost& ourObject);
 

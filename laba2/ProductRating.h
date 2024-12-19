@@ -10,6 +10,7 @@ public:
     int GetNegativeReviews() const;
     void updateCurrentData(double newPrice, int newProductQuantity, int positiveReviewCount, int negativeReviewCount);
 
+   // void printSummary() const override;
     //TODO добавить метод изменения с использованием метода изменения базового класса currentdata
 
 private:
