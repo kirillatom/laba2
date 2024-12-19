@@ -7,7 +7,7 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
     char link[] = "http://example.com/phone";
-    int startPrice;
+    double startPrice;
     double price; int stock;
     bool check = true;
     char select;
@@ -19,8 +19,9 @@ int main()
     cin >> pr;
     cout << "Введите количество негативных отзывов о товарах" << endl;
     cin >> nr;
-    IProduct* test[2];
-    test[0] = new ProductRating(link, 10, 10, startPrice, pr, nr);
+  
+    IProduct<double>* test[2];
+    test[0] = new ProductCost<double>(link, 10, 10, startPrice);
 
     do {
         cout << "Введите цену товара" << endl;
