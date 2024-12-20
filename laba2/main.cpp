@@ -33,7 +33,7 @@ int main()
         cin >> pr;
         cout << "Введите количество негативных отзывов о товарах" << endl;
         cin >> nr;
-        test[0]->CoutRating(/*pr, nr*/);
+        test[0]->CoutRating();
         cout << "Хотели ли бы вы добавить еще 1 день мониторинга? (Y/N)" << endl;
         cin >> select;
         if (select == 'N' || select == 'n')

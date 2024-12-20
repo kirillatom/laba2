@@ -1,6 +1,6 @@
 #include "ProductCost.h"
 template<typename T>
-class ProductRating : public ProductCost
+class ProductRating : public ProductCost<T>
 {
 public:
     ProductRating(const char* url, const unsigned int day, const unsigned int stock, T price, unsigned int& positiveReviewCount, unsigned int& negativeReviewCount);
@@ -41,7 +41,7 @@ ProductRating<T>::ProductRating(const char* url,
     if (positiveReviewCount > maxRateProduct)
     {
         maxRateProduct = positiveReviewCount;
-        maxRateDay = actualmonitoringDay;
+        maxRateDay = ProductCost<T>::actualmonitoringDay;
     }
 }
 template<typename T>

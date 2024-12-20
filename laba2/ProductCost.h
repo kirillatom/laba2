@@ -19,7 +19,31 @@ public:
 		AT_MINIMUM,    // Цена на минимуме
 		AT_MAXIMUM    // Цена на максимуме
 	};
-	PriceTrend getPriceTrend() const;
+	PriceTrend getPriceTrend() const {
+		double lastPrice = priceHistory[actualmonitoringDay - NUMBER_ONE];
+
+		if (price == lastPrice)
+		{
+			return STABLE;
+		}
+		else if (price > lastPrice)
+		{
+			return INCREASING;
+		}
+		else if (price < lastPrice)
+		{
+			return DECREASING;
+		}
+		else if (price == minCost)
+		{
+			return AT_MINIMUM;
+		}
+		else if (price == maxCost)
+		{
+			return AT_MAXIMUM;
+		}
+		return STABLE;
+	}
 
 	ProductCost(const char* url, const unsigned int day, const unsigned int stock, T price);
 
@@ -30,17 +54,17 @@ public:
 	//метод тригера
 	bool isLowStock() const;
 
-	void updateCurrentData(double newPrice, int newProductQuantity) override;
+	void updateCurrentData(T newPrice, int newProductQuantity) override;
 	void printSummary() const override;
 	void printSummary(int MonitoringDay) const override;
 	//Селекторы
 	unsigned int getProductQuantity() const;
 	unsigned int getMonitoringDay() const;
-	double getPrice() const;
+	T getPrice() const;
 	unsigned int getActualmonitoringDay() const;
-	double getAverageCost() const;
-	double getMaxCost() const;
-	double getMinCost() const;
+	T getAverageCost() const;
+	T getMaxCost() const;
+	T getMinCost() const;
 
 	virtual void CoutRating() const override { }
 
@@ -54,7 +78,7 @@ protected:
 private:
 	// поля
 	unsigned int productQuantity; // текущее количество товара;
-    T price; //  текущая стоимость;
+	T price; //  текущая стоимость;
 	unsigned int monitoringDay; // количество дней мониторинга;
 	T averageCost = 0; // средняя стоимость
 	T maxCost; // максимальная стоимость
@@ -66,37 +90,37 @@ private:
 	static const int NUMBER_ONE = 1;
 	vector<double> priceHistory;
 	vector<int> monitoringDays; //Дни мониторинга
-	vector<int> productQuantityHistory; 
+	vector<int> productQuantityHistory;
 };
-#endif  PRODUCTCOST_H
 
-template<typename T>
-ProductCost<T>::getPrice ProductCost<T>::getPriceTrend() const
-{
-	double lastPrice = priceHistory[actualmonitoringDay - NUMBER_ONE];
 
-	if (price == lastPrice)
-	{
-		return STABLE;
-	}
-	else if (price > lastPrice)
-	{
-		return INCREASING;
-	}
-	else if (price < lastPrice)
-	{
-		return DECREASING;
-	}
-	else if (price == minCost)
-	{
-		return AT_MINIMUM;
-	}
-	else if (price == maxCost)
-	{
-		return AT_MAXIMUM;
-	}
-	return STABLE;
-}
+//template<typename T>
+//ProductCost<T>::PriceTrend ProductCost<T>::getPriceTrend() const
+//{
+//	double lastPrice = priceHistory[actualmonitoringDay - NUMBER_ONE];
+//
+//	if (price == lastPrice)
+//	{
+//		return STABLE;
+//	}
+//	else if (price > lastPrice)
+//	{
+//		return INCREASING;
+//	}
+//	else if (price < lastPrice)
+//	{
+//		return DECREASING;
+//	}
+//	else if (price == minCost)
+//	{
+//		return AT_MINIMUM;
+//	}
+//	else if (price == maxCost)
+//	{
+//		return AT_MAXIMUM;
+//	}
+//	return STABLE;
+//}
 template<typename T>
 ProductCost<T>::ProductCost(const char* url, const unsigned int day, const unsigned int stock, T price)
 	: productQuantity(stock), price(price), monitoringDay(day), actualmonitoringDay(0)
@@ -142,7 +166,7 @@ ProductCost<T>::~ProductCost()
 }
 
 template<typename T>
-void ProductCost<T>::updateCurrentData(double newPrice, int newProductQuantity) {
+void ProductCost<T>::updateCurrentData(T newPrice, int newProductQuantity) {
 	if (newProductQuantity < NUMBER_NULLIK)
 	{
 		throw invalid_argument("Запас товара не может быть отрицательным!!!");
@@ -172,7 +196,7 @@ void ProductCost<T>::updateCurrentData(double newPrice, int newProductQuantity) 
 	{
 		minCost = newPrice;
 	}
-	for (double price : priceHistory)
+	for (T price : priceHistory)
 	{
 		averageCost += price;
 	}
@@ -248,7 +272,7 @@ inline unsigned int ProductCost<T>::getMonitoringDay() const
 	return monitoringDay;
 }
 template<typename T>
-inline double ProductCost<T>::getPrice() const
+T ProductCost<T>::getPrice() const
 {
 	return price;
 }
@@ -258,17 +282,17 @@ inline unsigned int ProductCost<T>::getActualmonitoringDay() const
 	return actualmonitoringDay;
 }
 template<typename T>
-inline double ProductCost<T>::getAverageCost() const
+T ProductCost<T>::getAverageCost() const
 {
 	return averageCost;
 }
 template<typename T>
-inline double ProductCost<T>::getMaxCost() const
+T ProductCost<T>::getMaxCost() const
 {
 	return maxCost;
 }
 template<typename T>
-inline double ProductCost<T>::getMinCost() const
+T ProductCost<T>::getMinCost() const
 {
 	return minCost;
 }
@@ -335,3 +359,5 @@ ostream& operator << (ostream& out, const IProduct<T>& ourObject) {
 	ourObject.printSummary();
 	return out;
 }
+
+#endif  PRODUCTCOST_H
